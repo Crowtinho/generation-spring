@@ -1,8 +1,15 @@
 package com.crow.blog.models;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Posteo {
     private Long id;
+    @NotBlank(message = "el título no puede ir vacío")
+    @NotNull(message = "No puede ser nulo")
     private String titulo;
+    @NotBlank(message = "el título no puede ir vacío")
+    @NotNull(message = "No puede ser nulo")
     private String autor;
 
 

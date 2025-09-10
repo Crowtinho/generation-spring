@@ -3,6 +3,7 @@ package com.crow.blog.controllers;
 
 import com.crow.blog.models.Posteo;
 import com.crow.blog.services.PosteoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class PosteoController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<String> guardarPost(@RequestBody Posteo posteo){
+    public ResponseEntity<String> guardarPost(@Valid @RequestBody Posteo posteo){
         posteoService.save(posteo);
         return ResponseEntity.ok("post guardado");
     }
