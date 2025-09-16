@@ -1,13 +1,13 @@
-package com.crow.blog.repositories;
+package com.crow.blog.services;
 
 import com.crow.blog.models.Posteo;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface Repository <T>{
+public interface Service<T> {
     List<T> findall();
     Optional<T> findById(Long id);
-    Posteo save(T t);
-    void delete(Long id);
+    T save(T t);
+    Optional<T> delete(Long id);
 }

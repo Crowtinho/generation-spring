@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/posteos")
 public class PosteoController {
 
     private PosteoService posteoService;
@@ -38,10 +39,11 @@ public class PosteoController {
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<String> editarPost(@PathVariable Long id, @RequestBody Posteo posteo){
+    public ResponseEntity<String> editarPost(@Valid @PathVariable Long id, @RequestBody Posteo posteo){
         return posteoService.findById(id).map(p -> {
-            p.setAutor(posteo.getAutor());
+            p.setAuthor(posteo.getAuthor());
             p.setTitulo(posteo.getTitulo());
+            posteoService.save(p);
             return ResponseEntity.ok("Producto Actualizado");
         }).orElse(ResponseEntity.notFound().build());
     }
@@ -50,6 +52,8 @@ public class PosteoController {
     public void eliminarPost(@PathVariable Long id){
         posteoService.delete(id);
     }
+
+
 
 
 

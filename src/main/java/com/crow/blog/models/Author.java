@@ -1,8 +1,9 @@
 package com.crow.blog.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,30 +14,30 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Entity
+@Table(name = "author")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "posteo")
-public class Posteo {
+@Getter
+@Setter
+
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "el título no puede ir vacío")
-    @Column(nullable = false)
-    private String titulo;
+    @NotBlank(message = "name is required")
+    private String name;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "author_id", nullable = false)
-    @JsonBackReference
-    private Author author;
+    @NotBlank(message = "email is required")
+    @Email(message = "use a email format")
+    private String email;
 
-
-    @OneToMany(mappedBy = "posteo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Comment> comments = new ArrayList<>();
+    private List<Posteo> posteos = new ArrayList<>();
+
+
 
 }
